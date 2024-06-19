@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Attack Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Heart Attack Prediction</h1>
+        <form id="prediction-form" class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="sex">Sex (0 = female, 1 = male)</label>
+                    <input type="number" id="sex" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cp">Chest Pain Type (0-3)</label>
+                    <input type="number" id="cp" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="trestbps">Resting Blood Pressure</label>
+                    <input type="number" id="trestbps" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="chol">Serum Cholesterol</label>
+                    <input type="number" id="chol" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fbs">Fasting Blood Sugar (0 or 1)</label>
+                    <input type="number" id="fbs" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="restecg">Resting ECG (0-2)</label>
+                    <input type="number" id="restecg" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="thalach">Max Heart Rate</label>
+                    <input type="number" id="thalach" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="exang">Exercise Induced Angina (0 or 1)</label>
+                    <input type="number" id="exang" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="oldpeak">ST Depression</label>
+                    <input type="number" step="0.1" id="oldpeak" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="slope">Slope of ST Segment (0-2)</label>
+                    <input type="number" id="slope" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ca">Number of Major Vessels (0-3)</label>
+                    <input type="number" id="ca" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="thal">Thalassemia (1-3)</label>
+                <input type="number" id="thal" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Predict</button>
+        </form>
+        <h2 id="result" class="text-center mt-4"></h2>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                age: parseInt(document.getElementById('age').value),
+                sex: parseInt(document.getElementById('sex').value),
+                cp: parseInt(document.getElementById('cp').value),
+                trestbps: parseInt(document.getElementById('trestbps').value),
+                chol: parseInt(document.getElementById('chol').value),
+                fbs: parseInt(document.getElementById('fbs').value),
+                restecg: parseInt(document.getElementById('restecg').value),
+                thalach: parseInt(document.getElementById('thalach').value),
+                exang: parseInt(document.getElementById('exang').value),
+                oldpeak: parseFloat(document.getElementById('oldpeak').value),
+                slope: parseInt(document.getElementById('slope').value),
+                ca: parseInt(document.getElementById('ca').value),
+                thal: parseInt(document.getElementById('thal').value)
+            };
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerText = `Prediction: ${data.prediction ? 'High risk of heart attack' : 'Low risk of heart attack'}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('result').innerText = 'An error occurred';
+        });
+    });
+    </script>
+</body>
+</html>
