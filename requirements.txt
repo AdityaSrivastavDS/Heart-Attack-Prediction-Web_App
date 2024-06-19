@@ -2,7 +2,7 @@ click
 Flask
 itsdangerous
 Jinja2
-sklearn
+scikit-learn
 MarkupSafe
 numpy
 Werkzeug
