@@ -13,7 +13,7 @@ Welcome to the Heart Attack Prediction Web App! This application helps predict t
 ## Installation
 To run this web app locally, follow these steps:
 1. Clone the repository: `git clone https://github.com/AdityaSrivastavDS/Heart-ATtack-Prediction-Web_App`
-2. Navigate to the project directory: `cd heart-attack-prediction`
+2. Navigate to the project directory: `cd Heart-Attack-Prediction-Web_App`
 3. Run the application: `python app.py`
 
 ## Usage
