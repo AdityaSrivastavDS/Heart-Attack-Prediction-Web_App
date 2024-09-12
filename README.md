@@ -26,7 +26,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Hosted On(live view):
-https://heart-attack-prediction-webapp-production.up.railway.app/
+https://heart-attack-risk-predictor-web-app.onrender.com/
 
 ## Contact
 If you have any questions or suggestions, feel free to open an issue or contact me at [adityasrivastav729@gmail.com](mailto:adityasrivastav729@gmail.com).
